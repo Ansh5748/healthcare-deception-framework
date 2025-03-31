@@ -1,0 +1,59 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5002:5002"
+    volumes:
+      - ./app:/app
+    depends_on:
+      - redis
+      - elasticsearch
+    environment:
+      - FLASK_APP=app.py
+      - FLASK_ENV=development
+      - REDIS_HOST=redis
+      - ELASTICSEARCH_HOST=elasticsearch
+
+  redis:
+    image: redis:6.2
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+    command: ["redis-server", "--notify-keyspace-events", "KEA"]
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.14.0
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "9201:9200"
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.14.0
+    volumes:
+      - ./monitoring/logstash/pipeline:/usr/share/logstash/pipeline
+      - ./monitoring/logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml
+    ports:
+      - "5044:5044"
+      - "9600:9600"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.14.0
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    ports:
+      - "5602:5601"
+    depends_on:
+      - elasticsearch
+
+volumes:
+  redis_data:
+  elasticsearch_data:
