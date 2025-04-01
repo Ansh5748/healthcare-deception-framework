@@ -149,6 +149,16 @@ docker-compose down -v
 4. Access a honeytoken URL to trigger an alert
 5. Check the logs in Kibana to see the alert
 
+## ScreenShots
+![Screenshot 2025-03-29 141710](https://github.com/user-attachments/assets/37d8d8f6-a5c6-46ef-a9d2-de29e7ed6bd5)
+![Screenshot 2025-03-29 141701](https://github.com/user-attachments/assets/da8c5dce-fc43-4c65-a598-ea3f1065dc0c)
+![Screenshot 2025-03-29 141615](https://github.com/user-attachments/assets/ccfd760a-014f-49f4-b33f-bb106b92977a)
+![Screenshot 2025-03-29 141532](https://github.com/user-attachments/assets/0399ae8d-ff59-407f-bab9-249ba07fe6aa)
+![Screenshot 2025-03-29 141523](https://github.com/user-attachments/assets/bfd3dee2-cf8a-468d-9d0f-88411c036dfd)
+
+
+
+
 ## 📚 Educational Resources
 
 This project demonstrates several cybersecurity concepts:
